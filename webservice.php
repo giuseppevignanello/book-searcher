@@ -1,4 +1,9 @@
 <?php
+header('Content-Type: application/json');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: SAMEORIGIN');
+header('Content-Security-Policy: default-src \'self\'');
+
 $dataset_file = __DIR__ . '/dataset.json';
 
 if (!file_exists($dataset_file)) {
@@ -15,7 +20,6 @@ if ($dataset === null) {
 
 $search_text = isset($_GET["texto"]) ? trim($_GET["texto"]) : "";
 $search_text = urldecode(htmlspecialchars($search_text));
-echo ("Texto buscado: " . $search_text);
 
 if ($search_text === "") {
     echo json_encode(["error" => "'texto' param is required"]);
@@ -26,11 +30,10 @@ $found_books = [];
 $found_authors = [];
 $authors_books = [];
 
-
+$search_text_lower = strtolower($search_text);
 
 foreach ($dataset as $item) {
-
-    //match only with the exact text
+    //match only with the exact text. Using strpos we could match with a part of the string and it would be a little bit faster
     if (strtolower($item["titulo"]) == strtolower($search_text)) {
         $found_books[] = $item;
     }
