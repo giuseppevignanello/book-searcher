@@ -47,3 +47,9 @@ autores: Los autores que coinciden con el texto de búsqueda en el campo autor. 
 ## Ejemplo de llamada
 
 http://localhost/webservice.php?texto=Nombre%20Apellido
+
+## Posibles mejoras
+
+- Indexar o almacenar en caché el dataset para una búsqueda más rápida.
+- Utilizar strpos para permitir la búsqueda incluso con porciones de texto.
+- Mejorar los headers.
